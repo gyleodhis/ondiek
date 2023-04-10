@@ -2,9 +2,9 @@ import dash
 from dash import html
 # import os
 
-dash.register_page(__name__,path='/profile',name='Profile',title='Rabet | Profile',
+dash.register_page(__name__,path='/docs',name='Docs',title='Ondiek | Docs',
                    image_url='assets/img/gyle.jpg',
-                   description='It matters to me that I use data as the new frontier in discovering new insights right here at Rabet Africa')
+                   description='Ondiek Documentation')
 layout = html.Div([
     html.Section(className='content-header', children=[
         html.Div(className='container-fluid', children=[
@@ -17,7 +17,7 @@ layout = html.Div([
                         html.Li(className='breadcrumb-item', children=[
                             html.A('Home', href='/')
                         ]),
-                        html.Li('My Profile', className='breadcrumb-item active')
+                        html.Li('Docs', className='breadcrumb-item active')
                     ])
                 ])
             ])

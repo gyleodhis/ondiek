@@ -1,14 +1,14 @@
 import dash
 from dash import Dash, html, dcc
 import datetime as dt
-from dash.dependencies import Input, Output
+from utils.config import Ondiek_port,Ondiek_name,Ondiek_creator_url
 
 app = Dash(__name__,use_pages=True)
 server = app.server
-app.title = 'Ondiek'
+app.title = Ondiek_name
 
 app.layout = html.Div(
-    className='hold-transition sidebar-mini layout-fixed layout-footer-fixed layout-navbar-fixed',
+    className='hold-transition sidebar-mini layout-fixed layout-footer-fixed',
     children=[
         html.Div(className='wrapper', children=[
             html.Nav(className="main-header navbar navbar-expand",
@@ -21,7 +21,7 @@ app.layout = html.Div(
                              html.Li(className='nav-item d-sm-inline-block', children=[
                                  html.A('Home', className='nav-link', href=dash.page_registry['pages.home']['path'])]),
                              html.Li(className='nav-item d-sm-inline-block', children=[
-                                 html.A('About', className='nav-link', href=dash.page_registry['pages.about']['path'])])
+                                 html.A('Docs', className='nav-link', href=dash.page_registry['pages.docs']['path'])])
                          ]),
                          html.Ul(className='navbar-nav ml-auto', children=[
                              html.Form(className='form-inline ml-3', children=[
@@ -39,11 +39,10 @@ app.layout = html.Div(
                        # Logo container
                        children=[
                            html.A(className='brand-link',
-                                  href='https://www.linkedin.com/in/gaylord-odhiambo-992990150/',
+                                  href=Ondiek_creator_url,
                                   target='_blank', children=[
-                                   html.Img(className='brand-image img-circle elevation-3', src='assets/img/gyle.jpg',
-                                            alt='Profile Pic',
-                                            style={'opacity': .8}),
+                                   html.Img(className='brand-image img-circle elevation-3', src='assets/img/logo.png',
+                                            alt='Brand Pic',style={'opacity': .8}),
                                    html.Span('Ondiek', className='brand-text font-weight-light')
                                ]),
                            html.Div(className='sidebar', children=[
@@ -54,12 +53,19 @@ app.layout = html.Div(
                                                html.A(className='nav-link', href=dash.page_registry['pages.home']['path'], children=[
                                                    html.I(className='nav-icon fas fa-globe-africa text-success'),
                                                    html.P(children=['Home'])])
-                                           ])
-                                           # html.Li(className='nav-item', children=[
-                                           #     html.A(className='nav-link', href=dash.page_registry['pages.climate']['path'], children=[
-                                           #         html.I(className='nav-icon fa fa-sun-o'),
-                                           #         html.P('Page 2')
-                                           #     ])])
+                                           ]),
+                                           html.Li(className='nav-item', children=[
+                                               html.A(className='nav-link', href=(dash.page_registry['pages.linegraph']['path']),
+                                                      children=[
+                                                          html.I(className='nav-icon fa fa-tree'),
+                                                          html.P('Page 2')
+                                               ])]),
+                                           html.Li(className='nav-item', children=[
+                                               html.A(className='nav-link', href=(dash.page_registry['pages.ag_grid']['path']),
+                                                      children=[
+                                                          html.I(className='nav-icon fa fa-table'),
+                                                          html.P('Page 3')
+                                               ])])
                                        ])
                                ])
                            ])
@@ -76,4 +82,4 @@ app.layout = html.Div(
     ])
 
 if __name__ == '__main__':
-    app.run_server(host='0.0.0.0', port=5050, debug=False)
+    app.run_server(host='0.0.0.0', port=Ondiek_port, debug=False)

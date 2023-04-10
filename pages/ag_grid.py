@@ -1,10 +1,11 @@
 import dash
 from dash import html, dcc
 import controller.my_functions as mf
-from controller.wb_forest import df_PctForestArea,df_percentlost,fig_forest_line,fig_forest_bar,fig_forest_gain_bar
-from utils.config import Ondiek_graph_config,Ondiek_name
+from controller.wb_forest import df_PctForestArea,df_percentlost
+from controller.forest_ag_grid import forest_table
+from utils.config import Ondiek_name
 
-dash.register_page(__name__,path='/',name='Home',title=Ondiek_name,image_url='assets/img/site_meta.jpeg',
+dash.register_page(__name__,path='/table',name='Page 3',title=Ondiek_name,image_url='assets/img/site_meta.jpeg',
                    description='A Python module to help you get up and running with Plotly Dash Dashboards.')
 layout = html.Div([
     html.Section(className='content-header', children=[
@@ -15,7 +16,9 @@ layout = html.Div([
                 ]),
                 html.Div(className='col-sm-6', children=[
                     html.Ol(className='breadcrumb float-sm-right', children=[
-                        html.Li('Home', className='breadcrumb-item active')
+                        html.Li(className='breadcrumb-item', children=[
+                            html.A('Home', href='/')]),
+                        html.Li('Ag Grid', className='breadcrumb-item active')
                     ])
                 ])
             ])
@@ -65,32 +68,7 @@ layout = html.Div([
                     ])
                 ])
             ]),
-            # The row for graphs
-            html.Div(className='row', children=[
-                html.Div(className='col-md-12', children=[
-                    html.Div(className='card', children=[
-                        html.Div(className='card-body', children=[
-                            html.Div(className='d-flex', children=[
-                                        html.P(className='d-flex flex-column', children=[
-                                            html.Span('2003 - 2020 Comparison',
-                                                      className='text-bold text-lg'),
-                                            html.Span('Countries with Declining Cover')
-                                        ]),
-                                        html.P(className='ml-auto d-flex flex-column text-right', children=[
-                                            html.Span(className='text-danger', children=[
-                                                html.I('%s%%'%mf.round_up(df_percentlost['Pct_Lost'].iloc[0],2),className='fas fa-arrow-down')
-                                            ]),
-                                            html.Span('Highest Looser', className='text-muted')
-                                        ])
-                                    ]),
-                            html.Div(className='position-relative mb-4', children=[
-                                        dcc.Loading(type='circle',color='#006400',children=dcc.Graph(figure=fig_forest_bar(), config=Ondiek_graph_config))
-                                    ])
-                            ])
-                        ])
-                    ])
-                ]),
-            #Forest land table
+            # """Forest land table"""
             html.Div(className='row', children=[
                 html.Div(className='col-md-12', children=[
                     html.Div(className='card', children=[
@@ -103,7 +81,7 @@ layout = html.Div([
                             html.Div(className='tab-content p-0', children=[
                                 html.Div(className='active tab-pane', children=[
                                     html.Div(className='position-relative mb-4', children=[
-                                        # dcc.Loading(type='circle',color='#006400',children=html.Div(forest_table))
+                                        dcc.Loading(type='circle',color='#006400',children=html.Div(forest_table))
                                     ])] )
                             ])
                         ])
