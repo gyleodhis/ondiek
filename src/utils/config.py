@@ -24,3 +24,6 @@ Ondiek_bg_color = Ondiek_graph_background_color[5]
 """This is the URL to redirect when the site name is clicked. If you are a creator you can redirect to your
 social media page or else replace with '#' to redirect to home page"""
 Ondiek_creator_url='https://www.linkedin.com/in/gaylord-odhiambo-992990150/'
+
+"""Name of the directory where your applications will be created at:"""
+ondiek_main_dir = 'OndiekApps'

@@ -5,15 +5,18 @@ from utils.config import Ondiek_color_palette,Ondiek_bg_color
 
 def getPctForestArea():
     print('Downloading data from Worldbank (Apprx 2 Mins)...')
-    df_forest = wb.data.DataFrame('AG.LND.FRST.ZS', economy=wb.region.members('AFR'), labels=True)
-    df_forest = df_forest.reset_index(drop=True).set_index('Country')
-    df_forest = df_forest.iloc[1:, -19:-1].reset_index()
-    df_forest['Pct_Lost'] = df_forest['YR2003'] - df_forest['YR2020']
-    df_forest.loc[60] = df_forest.mean(numeric_only=True)
-    df_forest['Country'] = df_forest['Country'].fillna('Africa')
-    df_forest.sort_values(by='YR2020', inplace=True, ascending=False)
-    print('Perfect we have the data now ...')
-    return df_forest.reset_index(drop=True)
+    try:
+        df_forest = wb.data.DataFrame('AG.LND.FRST.ZS', economy=wb.region.members('AFR'), labels=True)
+        df_forest = df_forest.reset_index(drop=True).set_index('Country')
+        df_forest = df_forest.iloc[1:, -19:-1].reset_index()
+        df_forest['Pct_Lost'] = df_forest['YR2003'] - df_forest['YR2020']
+        df_forest.loc[60] = df_forest.mean(numeric_only=True)
+        df_forest['Country'] = df_forest['Country'].fillna('Africa')
+        df_forest.sort_values(by='YR2020', inplace=True, ascending=False)
+        print('Perfect we have the data now ...')
+        return df_forest.reset_index(drop=True)
+    except:
+        return print('Error contacting Worldbank. Please check on your internet connection or firewall configuration')
 
 
 df_PctForestArea = getPctForestArea()
